@@ -1,0 +1,750 @@
+package SimplePhonePackage;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Panel;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+
+public class MainForm extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	public Phoneinfo[] pharray = new Phoneinfo[20];
+	private final JLabel lblNewLabel = new JLabel("New label");
+
+	/**
+	 * Launch the application.
+	 * Documentation
+	 * MainFrom.java(SimplePhonePackage)
+	 * Mr.Fone Mobile Phone Sale Company of MainForm
+	 * 
+	 *  Display the mobile phone information
+	 *  Sort by Brand with Ascending or Descending
+	 *  Sort by Color with Ascending or Descending 
+	 *  Sort by Price with Ascending or Descending 
+	 *  Sort by Stock with Ascending or Descending 
+	 *  Set the refresh Button
+	 *  Set the Search Button Button and link to PhoneSearch.java
+	 *  Set the Advanced Search Button and link to TripleSearch.java
+	 *  set the exit button
+	 */
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainForm frame = new MainForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MainForm() {
+		setAlwaysOnTop(true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Computer System\\1.png"));
+		pharray[0] = new Phoneinfo(1, "Vivo", 5, "Y95", "Andriod OS", "3 GB", "Red", 180000);
+		pharray[1] = new Phoneinfo(2, "Toshiba", 10, "TG01", "Window OS", "4 GB", "Black", 200000);
+		pharray[2] = new Phoneinfo(3, "Sony Ericsson", 6, "X ray", "Andriod OS", "2 GB", "White", 900000);
+		pharray[3] = new Phoneinfo(4, "Lenovo", 8, "Z5s", "Andriod OS", "8 GB", "Pink", 500000);
+		pharray[4] = new Phoneinfo(5, "Samsung", 23, "A7", "Andriod OS", "16 GB", "Red", 800000);
+		pharray[5] = new Phoneinfo(6, "Panasonic", 18, "X1 Pro", "Window OS", "4 GB", "Gold", 120000);
+		pharray[6] = new Phoneinfo(7, "Nokia", 15, "8.1", "JAVA OS", "16 GB", "Silver", 300000);
+		pharray[7] = new Phoneinfo(8, "Microsoft", 13, "Lumia 950", "Window OS", "8 GB", "Red", 140000);
+		pharray[8] = new Phoneinfo(9, "LG", 21, "Candy", "Andriod OS", "16 GB", "Green", 410000);
+		pharray[9] = new Phoneinfo(10, "Apple", 9, "Iphone X", "IOS", "32 GB", "Black", 1000000);
+		pharray[10] = new Phoneinfo(11, "HTC", 31, "U11", "Andriod OS", "3 GB", "Blue", 830000);
+
+		pharray[11] = new Phoneinfo(12, "Samsung", 42, "Note9", "Andriod OS", "3 GB", "Red", 950000);
+		pharray[12] = new Phoneinfo(13, "Microsoft", 24, "Lumia 535", "Andriod OS", "3 GB", "Blue", 340000);
+		pharray[13] = new Phoneinfo(14, "Apple", 26, "Iphone8", "Andriod OS", "3 GB", "Red", 1200000);
+		pharray[14] = new Phoneinfo(15, "Sony Ericsson", 28, "Walkman", "Andriod OS", "3 GB", "Red", 660000);
+		pharray[15] = new Phoneinfo(16, "Nokia", 4, "7 plus", "Andriod OS", "3 GB", "Silver", 710000);
+		pharray[16] = new Phoneinfo(17, "Lenovo", 14, "K9", "Andriod OS", "3 GB", "Red", 860000);
+		pharray[17] = new Phoneinfo(18, "Vivo", 17, "Y95", "Andriod OS", "3 GB", "Black", 460000);
+		pharray[18] = new Phoneinfo(19, "LG", 19, "G7", "Andriod OS", "3 GB", "Red", 390000);
+		pharray[19] = new Phoneinfo(20, "HTC", 7, "A9s", "Andriod OS", "3 GB", "Gold", 250000);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 703, 645);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel label = new JLabel("Phone Information");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Georgia", Font.BOLD | Font.ITALIC, 26));
+		label.setBounds(207, 11, 319, 22);
+		contentPane.add(label);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(63, 44, 567, 322);
+		contentPane.add(scrollPane);
+
+		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+		for (int i = 0; i < pharray.length; i++) {
+
+			String list = " " + pharray[i].getList();
+			String totamount = " " + pharray[i].getTotamount();
+			String amount = " " + pharray[i].getamount();
+
+			String data[] = new String[] { list, pharray[i].getBrand(), amount, pharray[i].getModel(),
+					pharray[i].getOs(), pharray[i].getRam(), pharray[i].getColor(), totamount };
+			model.addRow(data);
+
+		}
+		scrollPane.setViewportView(table);
+
+		JRadioButton rdbtnAscendingOrdercolor = new JRadioButton("Ascending Order");
+		rdbtnAscendingOrdercolor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rdbtnAscendingOrdercolor.setBackground(Color.CYAN);
+		rdbtnAscendingOrdercolor.setForeground(Color.BLUE);
+		rdbtnAscendingOrdercolor.setBounds(22, 511, 132, 23);
+		contentPane.add(rdbtnAscendingOrdercolor);
+
+		JRadioButton rdbtnDescendingOrdercolor = new JRadioButton("Descending Order");
+		rdbtnDescendingOrdercolor.setBackground(Color.LIGHT_GRAY);
+		rdbtnDescendingOrdercolor.setForeground(Color.BLUE);
+		rdbtnDescendingOrdercolor.setBounds(156, 511, 132, 23);
+		contentPane.add(rdbtnDescendingOrdercolor);
+
+		// create the button
+		// group***************************************************************
+		// ButtonGroup bg3=new ButtonGroup();
+		// bg3.add(rdbtnAscendingOrdercolor);
+		// bg3.add(rdbtnDescendingOrdercolor);
+		// create the button
+		// group***************************************************************
+
+		JButton button = new JButton("Sort By Color");
+		button.setFont(new Font("Berlin Sans FB Demi", Font.BOLD | Font.ITALIC, 14));
+		button.setBackground(Color.BLUE);
+		button.setForeground(Color.WHITE);
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				MainForm mf = new MainForm();
+				Phoneinfo[] pharray = mf.getpharray();
+				if (rdbtnAscendingOrdercolor.isSelected()) {
+					String name[] = new String[pharray.length];
+					
+					for (int i = 0; i < pharray.length; i++) {
+						
+						name[i] = pharray[i].getColor();
+						
+					}
+					
+					int n = name.length;
+
+					bubbleSortasc(name, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < name.length; i++) {
+						int x = searchcolor(pharray, name[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						pharray[x].setColor(null);
+					}
+					scrollPane.setViewportView(table);
+
+				} else if (rdbtnDescendingOrdercolor.isSelected()) {
+
+					String name[] = new String[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						name[i] = pharray[i].getColor();
+					}
+					int n = name.length;
+
+					bubbleSortdesc(name, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < name.length; i++) {
+						int x = searchcolor(pharray, name[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						pharray[x].setColor(null);
+					}
+					scrollPane.setViewportView(table);
+				}
+
+			}
+		});
+		button.setBounds(96, 481, 132, 23);
+		contentPane.add(button);
+
+		JButton button_1 = new JButton("Sort By Brand");
+		JRadioButton rdbtndescendingbrand = new JRadioButton("Descending Order");
+		rdbtndescendingbrand.setBackground(Color.LIGHT_GRAY);
+		rdbtndescendingbrand.setForeground(Color.BLUE);
+		rdbtndescendingbrand.setBounds(156, 397, 132, 23);
+		contentPane.add(rdbtndescendingbrand);
+
+		JRadioButton rdbtnascendingbrand = new JRadioButton("Ascending Order");
+		rdbtnascendingbrand.setBackground(Color.CYAN);
+		rdbtnascendingbrand.setForeground(Color.BLUE);
+		rdbtnascendingbrand.setBounds(22, 397, 132, 23);
+		contentPane.add(rdbtnascendingbrand);
+
+		// create the button
+		// group***************************************************************
+		// ButtonGroup bg2=new ButtonGroup();
+		// bg2.add(rdbtndescendingbrand);
+		// bg2.add(rdbtnascendingbrand);
+		// create the button
+		// group***************************************************************
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainForm mf = new MainForm();
+				Phoneinfo[] pharray = mf.getpharray();
+				if (rdbtnascendingbrand.isSelected()) {
+
+					String name[] = new String[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						name[i] = pharray[i].getBrand();
+					}
+					int n = name.length;
+
+					bubbleSortasc(name, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < name.length; i++) {
+						int x = searchname(pharray, name[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						pharray[x].setBrand("");
+					}
+					scrollPane.setViewportView(table);
+				}
+
+				else if (rdbtndescendingbrand.isSelected()) {
+
+					String name[] = new String[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						name[i] = pharray[i].getBrand();
+					}
+					int n = name.length;
+
+					bubbleSortdesc(name, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < name.length; i++) {
+						int x = searchname(pharray, name[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						pharray[x].setBrand("");
+					}
+					scrollPane.setViewportView(table);
+				}
+			}
+		});
+		button_1.setForeground(Color.WHITE);
+		button_1.setFont(new Font("Berlin Sans FB Demi", Font.BOLD | Font.ITALIC, 14));
+		button_1.setBackground(Color.BLUE);
+		button_1.setBounds(96, 427, 132, 23);
+		contentPane.add(button_1);
+
+		JButton button_2 = new JButton("Sort By Price");
+		JRadioButton rdbtnascendingprice = new JRadioButton("Ascending Order");
+		rdbtnascendingprice.setBackground(Color.CYAN);
+		rdbtnascendingprice.setForeground(Color.BLUE);
+		rdbtnascendingprice.setBounds(377, 397, 132, 23);
+		contentPane.add(rdbtnascendingprice);
+
+		JRadioButton rdbtndescendingprice = new JRadioButton("Descending Order");
+		rdbtndescendingprice.setBackground(Color.LIGHT_GRAY);
+		rdbtndescendingprice.setForeground(Color.BLUE);
+		rdbtndescendingprice.setBounds(511, 397, 132, 23);
+		contentPane.add(rdbtndescendingprice);
+
+		JButton button_3 = new JButton("Sort By Stock");
+		button_3.setFont(new Font("Berlin Sans FB Demi", Font.BOLD | Font.ITALIC, 14));
+		button_3.setBackground(Color.BLUE);
+		button_3.setForeground(Color.WHITE);
+		JRadioButton rdbtnascendingstock = new JRadioButton("Ascending Order");
+		rdbtnascendingstock.setBackground(Color.CYAN);
+		rdbtnascendingstock.setForeground(Color.BLUE);
+		rdbtnascendingstock.setBounds(377, 511, 132, 23);
+		contentPane.add(rdbtnascendingstock);
+
+		JRadioButton rdbtndescendingstock = new JRadioButton("Descending Order");
+		rdbtndescendingstock.setBackground(Color.LIGHT_GRAY);
+		rdbtndescendingstock.setForeground(Color.BLUE);
+		rdbtndescendingstock.setBounds(511, 511, 132, 23);
+		contentPane.add(rdbtndescendingstock);
+
+		// create the button
+		// group***************************************************************
+		ButtonGroup bg1 = new ButtonGroup();
+		bg1.add(rdbtnascendingprice);
+		bg1.add(rdbtndescendingprice);
+		bg1.add(rdbtnascendingstock);
+		bg1.add(rdbtndescendingstock);
+		bg1.add(rdbtndescendingbrand);
+		bg1.add(rdbtnascendingbrand);
+		bg1.add(rdbtnAscendingOrdercolor);
+		bg1.add(rdbtnDescendingOrdercolor);
+		// create the button
+		// group***************************************************************
+
+		button_2.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (rdbtnascendingprice.isSelected()) {
+					int totpharray[] = new int[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						totpharray[i] = pharray[i].getTotamount();
+					}
+					int n = totpharray.length;
+					bubbleSort(totpharray, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < totpharray.length; i++) {
+						int x = searchmark(pharray, totpharray[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						// pharray[x].setTotamount(0);
+					}
+					scrollPane.setViewportView(table);
+				}
+
+				else if (rdbtndescendingprice.isSelected()) {
+					int totpharray[] = new int[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						totpharray[i] = pharray[i].getTotamount();
+					}
+					int n = totpharray.length;
+					bubbleSort1(totpharray, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < totpharray.length; i++) {
+						int x = searchmark(pharray, totpharray[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						// pharray[x].setTotamount(0);
+					}
+					scrollPane.setViewportView(table);
+				}
+
+				// **********************************************************************Action
+				// Perform********************************************************************************************************************************************
+
+			}
+		});
+		button_2.setForeground(Color.WHITE);
+		button_2.setFont(new Font("Berlin Sans FB Demi", Font.BOLD | Font.ITALIC, 14));
+		button_2.setBackground(Color.BLUE);
+		button_2.setBounds(447, 427, 132, 23);
+		contentPane.add(button_2);
+
+		/*
+		 * JButton button_3 = new JButton("Sort By Stock"); JRadioButton
+		 * rdbtnascendingstock = new JRadioButton("Ascending Order");
+		 * rdbtnascendingstock.setBounds(345, 499, 142, 23);
+		 * contentPane.add(rdbtnascendingstock);
+		 * 
+		 * JRadioButton rdbtndescendingstock = new JRadioButton("Descending Order");
+		 * rdbtndescendingstock.setBounds(489, 499, 143, 23);
+		 * contentPane.add(rdbtndescendingstock);
+		 */
+
+		// create the button
+		// group***************************************************************
+		// ButtonGroup bg=new ButtonGroup();
+		// bg.add(rdbtnascendingstock);
+		// bg.add(rdbtndescendingstock);
+		// create the button
+		// group***************************************************************
+
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (rdbtnascendingstock.isSelected()) {
+					int totpharray[] = new int[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						totpharray[i] = pharray[i].getamount();
+					}
+					int n = totpharray.length;
+					bubbleSort(totpharray, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < totpharray.length; i++) {
+						int x = searchamount(pharray, totpharray[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						// pharray[x].setamount(0);
+					}
+					scrollPane.setViewportView(table);
+				} else if (rdbtndescendingstock.isSelected()) {
+					int totpharray[] = new int[pharray.length];
+					for (int i = 0; i < pharray.length; i++) {
+						totpharray[i] = pharray[i].getamount();
+					}
+					int n = totpharray.length;
+					bubbleSort1(totpharray, n);
+
+					table.setModel(new DefaultTableModel(new Object[][] {},
+							new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+					// panel.add(table);
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					// String column[]=new String[]
+					// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+					// model.addRow(column);
+
+					for (int i = 0; i < totpharray.length; i++) {
+						int x = searchamount(pharray, totpharray[i]);
+						String list = " " + pharray[x].getList();
+						String totamount = " " + pharray[x].getTotamount();
+						String amount = " " + pharray[x].getamount();
+						// create array
+						String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+								pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+						model.addRow(data);
+						// pharray[x].setamount(0);
+					}
+					scrollPane.setViewportView(table);
+				}
+
+			}
+		});
+		button_3.setBounds(447, 481, 132, 23);
+		contentPane.add(button_3);
+
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBackground(Color.BLUE);
+		btnExit.setForeground(Color.WHITE);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(554, 575, 89, 23);
+		contentPane.add(btnExit);
+
+		JButton btnSearcjInformation = new JButton("Search  Information");
+		btnSearcjInformation.setBackground(Color.BLUE);
+		btnSearcjInformation.setForeground(Color.WHITE);
+		btnSearcjInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PhoneSearch ps = new PhoneSearch();
+				ps.setVisible(true);
+				dispose();
+			}
+		});
+		btnSearcjInformation.setBounds(220, 575, 152, 23);
+		contentPane.add(btnSearcjInformation);
+
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBackground(Color.BLUE);
+		btnRefresh.setForeground(Color.WHITE);
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				int totpharray[] = new int[pharray.length];
+				for (int i = 0; i < pharray.length; i++) {
+					totpharray[i] = pharray[i].getList();
+				}
+				int n = totpharray.length;
+				bubbleSort(totpharray, n);
+
+				table.setModel(new DefaultTableModel(new Object[][] {},
+						new String[] { "List", "Brand", "Amount", "Model", "OS", "RAM", "Color", "Sale Amount" }));
+
+				// panel.add(table);
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				// String column[]=new String[]
+				// {"List","Brand","Amount","Model","OS","RAM","Color","Sale Amount"};
+				// model.addRow(column);
+
+				for (int i = 0; i < totpharray.length; i++) {
+					int x = searchlist(pharray, totpharray[i]);
+					String list = " " + pharray[x].getList();
+					String totamount = " " + pharray[x].getTotamount();
+					String amount = " " + pharray[x].getamount();
+					// create array
+					String data[] = new String[] { list, pharray[x].getBrand(), amount, pharray[x].getModel(),
+							pharray[x].getOs(), pharray[x].getRam(), pharray[x].getColor(), totamount };
+					model.addRow(data);
+
+				}
+				scrollPane.setViewportView(table);
+
+			}
+		});
+		btnRefresh.setBounds(424, 575, 89, 23);
+		contentPane.add(btnRefresh);
+
+		JButton btnAdvancedSearch = new JButton("Advanced Search");
+		btnAdvancedSearch.setBackground(Color.BLUE);
+		btnAdvancedSearch.setForeground(Color.WHITE);
+		btnAdvancedSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TripleSearch triple = new TripleSearch();
+				triple.setVisible(true);
+				dispose();
+			}
+		});
+		btnAdvancedSearch.setBounds(22, 575, 152, 23);
+		contentPane.add(btnAdvancedSearch);
+		lblNewLabel.setIcon(new ImageIcon("D:\\app\\Presentatioin Layer\\phonewater.jpg"));
+		lblNewLabel.setBounds(0, 368, 687, 238);
+		contentPane.add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("D:\\app\\Presentatioin Layer\\phonewater.jpg"));
+		lblNewLabel_1.setBounds(0, 0, 687, 318);
+		contentPane.add(lblNewLabel_1);
+
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("D:\\app\\Presentatioin Layer\\phonewater.jpg"));
+		lblNewLabel_2.setBounds(0, 308, 687, 82);
+		contentPane.add(lblNewLabel_2);
+
+	}
+
+	// Search list
+	public static int searchlist(Phoneinfo[] pharray, int list) {
+		int index = 0;
+		for (int i = 0; i < pharray.length; i++) {
+			if (pharray[i].getList() == list) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	// Search amount
+	public static int searchamount(Phoneinfo[] pharray, int amount) {
+		int index = 0;
+		for (int i = 0; i < pharray.length; i++) {
+			if (pharray[i].getamount() == amount) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	// For the bubble sort for price
+	static void bubbleSort(int[] arr, int num) {
+		int n = arr.length;
+		int temp = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 1; j < (n - i); j++) {
+				if (arr[j - 1] > arr[j]) {
+					// swap elements
+					temp = arr[j - 1];
+					arr[j - 1] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+
+	// Search price
+	public static int searchmark(Phoneinfo[] pharray, int totamount) {
+		int index = 0;
+		for (int i = 0; i < pharray.length; i++) {
+			if (pharray[i].getTotamount() == totamount) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	// For the bubble sort for descending1
+	static void bubbleSort1(int[] arr, int num) {
+		int n = arr.length;
+		int temp = 0;
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = 1; j < n - i; j++) {
+				if (arr[j - 1] < arr[j]) {
+					temp = arr[j - 1];
+					arr[j - 1] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+
+	// For the bubble sort for brand
+	static void bubbleSortasc(String[] name, int num) {
+		int n = name.length;
+		String temp = ""; // null
+		for (int i = 0; i < n; i++) {
+			for (int j = 1; j < (n - i); j++) {
+				if (name[j - 1].compareTo(name[j]) > 0) {
+					// swap elements
+					temp = name[j - 1];
+					name[j - 1] = name[j];
+					name[j] = temp;
+				}
+			}
+		}
+	}
+
+	// Search brand
+	public static int searchname(Phoneinfo[] pharray, String name) {
+		int index = 0;
+		for (int i = 0; i < pharray.length; i++) {
+			if (pharray[i].getBrand() == name) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	// For the bubble sort string for descending
+	static void bubbleSortdesc(String[] name, int num) {
+		int n = name.length;
+		String temp = ""; // null
+		for (int i = 0; i < n; i++) {
+			for (int j = 1; j < (n - i); j++) {
+				if (name[j - 1].compareTo(name[j]) < 0) {
+					// swap elements
+					temp = name[j - 1];
+					name[j - 1] = name[j];
+					name[j] = temp;
+				}
+			}
+		}
+	}
+
+	// Search color
+	public static int searchcolor(Phoneinfo[] pharray, String color) {
+		int index = 0;
+		for (int i = 0; i < pharray.length; i++) {
+			if (pharray[i].getColor() == color) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	// For the search method (create the return function include array)
+	public Phoneinfo[] getpharray() {
+		return pharray;
+	}
+}

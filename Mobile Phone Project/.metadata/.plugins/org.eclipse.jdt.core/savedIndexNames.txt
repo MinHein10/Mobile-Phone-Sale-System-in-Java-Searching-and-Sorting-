@@ -1,0 +1,2 @@
+INDEX VERSION 1.130+E:\First Year HND Assignment (Sem1) and (Sem2)\Unit(1)Java Project Assignment MHT\Mobile Phone Project\.metadata\.plugins\org.eclipse.jdt.core
+1067094681.index

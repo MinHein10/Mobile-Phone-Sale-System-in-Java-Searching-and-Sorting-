@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JSlider"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JList"/>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JEditorPane"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JButton"/>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JFormattedTextField"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JEditorPane"/>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JSpinner"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JFormattedTextField"/>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JButton"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JProgressBar"/>
+</commands>
